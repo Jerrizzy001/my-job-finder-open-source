@@ -10,12 +10,14 @@ import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { MATCHING_POLICY_VERSION } from '../src/index.ts'
 
-const PINNED = { version: 'mp-1', hash: '6ed4d73fbad0e612' }
+const PINNED = { version: 'mp-1', hash: '74418e0f1fd21f77' }
 
 function rulesHash(): string {
   const dir = join(import.meta.dirname, '..', 'src')
   const hash = createHash('sha256')
-  for (const file of readdirSync(dir).filter((name) => name.endsWith('.ts') && name !== 'policy.ts').sort()) {
+  for (const file of readdirSync(dir)
+    .filter((name) => name.endsWith('.ts') && name !== 'policy.ts')
+    .sort()) {
     hash.update(file)
     hash.update(readFileSync(join(dir, file), 'utf8').replace(/\r\n/g, '\n'))
   }

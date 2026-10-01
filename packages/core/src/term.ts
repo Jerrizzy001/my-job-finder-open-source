@@ -13,14 +13,39 @@
 export type Term = { start: number; end: number; text: string }
 
 const MONTHS: Readonly<Record<string, number>> = {
-  jan: 0, january: 0, feb: 1, february: 1, mar: 2, march: 2, apr: 3, april: 3, may: 4,
-  jun: 5, june: 5, jul: 6, july: 6, aug: 7, august: 7, sep: 8, sept: 8, september: 8,
-  oct: 9, october: 9, nov: 10, november: 10, dec: 11, december: 11,
+  jan: 0,
+  january: 0,
+  feb: 1,
+  february: 1,
+  mar: 2,
+  march: 2,
+  apr: 3,
+  april: 3,
+  may: 4,
+  jun: 5,
+  june: 5,
+  jul: 6,
+  july: 6,
+  aug: 7,
+  august: 7,
+  sep: 8,
+  sept: 8,
+  september: 8,
+  oct: 9,
+  october: 9,
+  nov: 10,
+  november: 10,
+  dec: 11,
+  december: 11,
 }
 
 /** Canadian co-op seasons: Winter Jan–Apr, Summer (and Spring) May–Aug, Fall Sep–Dec. */
 const SEASONS: Readonly<Record<string, readonly [number, number]>> = {
-  winter: [0, 3], spring: [4, 7], summer: [4, 7], fall: [8, 11], autumn: [8, 11],
+  winter: [0, 3],
+  spring: [4, 7],
+  summer: [4, 7],
+  fall: [8, 11],
+  autumn: [8, 11],
 }
 
 const MONTH = String.raw`(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sept?(?:ember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\.?`
@@ -74,10 +99,7 @@ export function formatMonth(count: number): string {
   return `${names[count % 12]} ${Math.floor(count / 12)}`
 }
 
-export type TermFit =
-  | { kind: 'no_term' }
-  | { kind: 'fits'; term: Term }
-  | { kind: 'after_graduation'; term: Term }
+export type TermFit = { kind: 'no_term' } | { kind: 'fits'; term: Term } | { kind: 'after_graduation'; term: Term }
 
 /**
  * Whether any stated term ends by graduation. A posting that offers several

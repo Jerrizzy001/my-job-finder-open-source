@@ -21,7 +21,14 @@ export type RuleCode =
   | 'work_mode_mismatch'
   | 'term_after_graduation'
 
-export type LocationFit = 'place' | 'remote_in_region' | 'remote_region_unstated' | 'unknown' | 'unfiltered' | 'mismatch' | 'remote_outside_region'
+export type LocationFit =
+  | 'place'
+  | 'remote_in_region'
+  | 'remote_region_unstated'
+  | 'unknown'
+  | 'unfiltered'
+  | 'mismatch'
+  | 'remote_outside_region'
 
 export type RuleResult = {
   failures: Reason[]
@@ -35,7 +42,10 @@ function fail(code: RuleCode, text: string): Reason {
 }
 
 function containsWord(text: string, word: string): boolean {
-  const escaped = word.trim().toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  const escaped = word
+    .trim()
+    .toLowerCase()
+    .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
   return escaped !== '' && new RegExp(`(?<![a-z0-9])${escaped}(?![a-z0-9])`, 'i').test(text)
 }
 
@@ -50,7 +60,8 @@ function titleRule(title: TitleMatch, job: Job): Reason[] {
           : `Your search is for student roles; "${job.title}" is not one.`,
       ),
     ]
-  if (title.dropReason === 'excluded_title') return [fail('excluded_title', `"${job.title}" matches a title you excluded.`)]
+  if (title.dropReason === 'excluded_title')
+    return [fail('excluded_title', `"${job.title}" matches a title you excluded.`)]
   const family = title.jobFamily ? ` (${FAMILY_LABELS[title.jobFamily]})` : ''
   return [fail('role_not_included', `"${job.title}"${family} is not one of the roles you search for.`)]
 }
@@ -73,10 +84,19 @@ export function locationRule(job: Job, prefs: Preferences): { fit: LocationFit; 
       return { fit: 'remote_in_region', failure: null }
     return {
       fit: 'remote_outside_region',
-      failure: fail('remote_outside_region', `Remote, but only from ${job.location}; you can work remotely from ${regions.join(', ') || places.join(', ')}.`),
+      failure: fail(
+        'remote_outside_region',
+        `Remote, but only from ${job.location}; you can work remotely from ${regions.join(', ') || places.join(', ')}.`,
+      ),
     }
   }
-  return { fit: 'mismatch', failure: fail('location_mismatch', `${job.location} is not one of your places (${places.join(', ') || 'none set'}).`) }
+  return {
+    fit: 'mismatch',
+    failure: fail(
+      'location_mismatch',
+      `${job.location} is not one of your places (${places.join(', ') || 'none set'}).`,
+    ),
+  }
 }
 
 export function checkRules(job: Job, prefs: Preferences, title: TitleMatch): RuleResult {
@@ -98,7 +118,9 @@ export function checkRules(job: Job, prefs: Preferences, title: TitleMatch): Rul
     failures.push(fail('work_mode_mismatch', `This job is ${workMode}; you want ${modes.join(' or ')}.`))
 
   const graduation = parseGraduation(prefs.graduation)
-  const term = title.student ? termFit(`${job.title}\n${job.description ?? ''}`, graduation) : ({ kind: 'no_term' } as const)
+  const term = title.student
+    ? termFit(`${job.title}\n${job.description ?? ''}`, graduation)
+    : ({ kind: 'no_term' } as const)
   if (term.kind === 'after_graduation')
     failures.push(
       fail(

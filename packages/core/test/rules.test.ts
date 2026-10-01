@@ -3,7 +3,9 @@ import { evaluateJob, type Preferences } from '../src/index.ts'
 import { job, studentPrefs } from './fixtures.ts'
 
 function failures(overrides: Parameters<typeof job>[0], prefs: Preferences = studentPrefs): string[] {
-  return evaluateJob(job(overrides), prefs).reasons.filter((r) => r.kind === 'fail').map((r) => r.code)
+  return evaluateJob(job(overrides), prefs)
+    .reasons.filter((r) => r.kind === 'fail')
+    .map((r) => r.code)
 }
 
 describe('hard rules', () => {
@@ -78,10 +80,11 @@ describe('hard rules', () => {
   })
 
   it('reports every failing rule, not just the first', () => {
-    expect(failures({ title: 'Marketing Intern', location: 'Remote - US', company: 'Example Co' }, { ...studentPrefs, blockedCompanies: ['Example Co'] })).toEqual([
-      'role_not_included',
-      'blocked_company',
-      'remote_outside_region',
-    ])
+    expect(
+      failures(
+        { title: 'Marketing Intern', location: 'Remote - US', company: 'Example Co' },
+        { ...studentPrefs, blockedCompanies: ['Example Co'] },
+      ),
+    ).toEqual(['role_not_included', 'blocked_company', 'remote_outside_region'])
   })
 })

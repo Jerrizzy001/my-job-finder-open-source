@@ -25,10 +25,10 @@ const ALWAYS = String.raw`intern(?:ship)?s?|co[ -]?op|co-?operative education|wo
 const SEASON = String.raw`(?:summer|fall|autumn|winter|spring)\s+students?`
 /** A word before "student"/"placement" that makes it the subject of the job. */
 const SUBJECT_BEFORE = String.raw`international|prospective|future|student|graduate|campus|patient|career|for|of|with|to`
-const QUALIFIER = String.raw`(?<!\b(?:${SUBJECT_BEFORE})[ -])(?:students?|placement)(?=\s*(?:$|[,()[\]/|:–—-]))`
+const QUALIFIER = String.raw`(?<!\b(?:${SUBJECT_BEFORE})[ -])(?:students?|placement)(?=\s*(?:$|[,()[\]/|:\u2013\u2014-]))`
 /** Role words a leading "Student" may qualify. */
 const ROLE_WORD = String.raw`software|web|full[ -]?stack|front[ -]?end|back[ -]?end|mobile|data|ai|machine|ml|cloud|devops|qa|quality|test|security|cyber\w*|research|developer|engineer\w*|programmer|analyst|scientist|technical|technology|systems?|product|ux|ui|game|embedded|firmware|hardware|network|database|business|finance|marketing|design\w*`
-const LEADING = String.raw`(?<=(?:^|[,(\[/|:–—-])\s*)students?(?=\s+(?:${ROLE_WORD})\b)`
+const LEADING = String.raw`(?<=(?:^|[,(\[/|:\u2013\u2014-])\s*)students?(?=\s+(?:${ROLE_WORD})\b)`
 
 const MARKER_SOURCE = String.raw`\b(?:${SEASON}|${ALWAYS}|${QUALIFIER}|${LEADING})\b`
 const markerTest = new RegExp(MARKER_SOURCE, 'i')
@@ -39,11 +39,7 @@ const TERM_WORDS = /\b(?:summer|fall|autumn|winter|spring|20\d\d|\d{1,2}[ -]?mon
 
 /** Lower case with accents off; punctuation kept. */
 function fold(title: string): string {
-  return title
-    .slice(0, 300)
-    .normalize('NFKD')
-    .replace(/[̀-ͯ]/g, '')
-    .toLowerCase()
+  return title.slice(0, 300).normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
 }
 
 /** Whether a title is written for a student (any marker, any form). */

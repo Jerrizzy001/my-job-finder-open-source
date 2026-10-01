@@ -49,10 +49,7 @@ export const OTHER_FAMILIES = [
 ] as const
 
 export type TechFamily = (typeof TECH_FAMILIES)[number]
-export type RoleFamily =
-  | TechFamily
-  | (typeof ADJACENT_FAMILIES)[number]
-  | (typeof OTHER_FAMILIES)[number]
+export type RoleFamily = TechFamily | (typeof ADJACENT_FAMILIES)[number] | (typeof OTHER_FAMILIES)[number]
 
 export const FAMILY_LABELS: Record<RoleFamily, string> = {
   software: 'software development',
@@ -113,10 +110,7 @@ const OVERRIDES: readonly Recogniser[] = [
     'education_services',
     /\bstudent (?:success|services|affairs|life|recruit\w*|advis\w*|experience|engagement|support|ambassador)\b|\bplacement (?:specialist|coordinator|officer|advis\w*|manager)\b|\b(?:career|coop) (?:advis\w*|coordinator|consultant|educator)\b/,
   ],
-  [
-    'hr_recruiting',
-    /\b(?:recruit\w*|talent acquisition|human resources|hr|people (?:partner|operations)|payroll)\b/,
-  ],
+  ['hr_recruiting', /\b(?:recruit\w*|talent acquisition|human resources|hr|people (?:partner|operations)|payroll)\b/],
   [
     'product',
     /\b(?:product manag\w*|product owner|program manag\w*|project manag\w*|project coordinat\w*|scrum master)\b/,
@@ -176,10 +170,7 @@ const NON_TECH: readonly Recogniser[] = [
     'marketing',
     /\b(?:marketing|communications?|social media|content|brand|public relations|seo|copywrit\w*|advertising|media|events?)\b/,
   ],
-  [
-    'sales',
-    /\b(?:sales|account executive|account manag\w*|partnerships?|customer success)\b/,
-  ],
+  ['sales', /\b(?:sales|account executive|account manag\w*|partnerships?|customer success)\b/],
   [
     'operations',
     /\b(?:operations|strategy|supply chain|logistics|procurement|administrative|office|clerk|data entry)\b/,

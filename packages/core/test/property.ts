@@ -18,14 +18,21 @@ export function pick<T>(random: () => number, items: readonly T[]): T {
 }
 
 /** Run `check` for `runs` generated cases; the message names the seed and case. */
-export function forAll<T>(runs: number, generate: (random: () => number) => T, check: (value: T) => void, seed = 20261001): void {
+export function forAll<T>(
+  runs: number,
+  generate: (random: () => number) => T,
+  check: (value: T) => void,
+  seed = 20261001,
+): void {
   const random = rng(seed)
   for (let run = 0; run < runs; run++) {
     const value = generate(random)
     try {
       check(value)
     } catch (error) {
-      throw new Error(`property failed (seed ${seed}, run ${run}) for ${JSON.stringify(value)}: ${(error as Error).message}`)
+      throw new Error(
+        `property failed (seed ${seed}, run ${run}) for ${JSON.stringify(value)}: ${(error as Error).message}`,
+      )
     }
   }
 }

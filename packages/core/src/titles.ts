@@ -1,10 +1,4 @@
-import {
-  classifyFamily,
-  familyReach,
-  isTechFamily,
-  looksRelated,
-  type RoleFamily,
-} from './families.ts'
+import { classifyFamily, familyReach, isTechFamily, looksRelated, type RoleFamily } from './families.ts'
 import { studentLevel } from './student.ts'
 import { normalizeTitle, titleTokens, workTokens } from './text.ts'
 
@@ -77,8 +71,7 @@ function familiesAgree(saved: RoleFamily | null, job: RoleFamily | null): boolea
 function tierAgainst(job: ReadTitle, saved: ReadTitle): Omit<TitleMatch, 'savedTitle' | 'dropReason'> {
   const base = { jobFamily: job.family, savedFamily: saved.family, student: job.student, reach: null }
   if (sameSet(job.tokens, saved.tokens)) return { ...base, tier: 'exact' }
-  if (containsAll(job.tokens, saved.work) && familiesAgree(saved.family, job.family))
-    return { ...base, tier: 'close' }
+  if (containsAll(job.tokens, saved.work) && familiesAgree(saved.family, job.family)) return { ...base, tier: 'close' }
   if (saved.family && job.family) {
     const reach = familyReach(saved.family, job.family)
     if (reach) return { ...base, tier: 'family', reach }

@@ -38,8 +38,85 @@ const REGIONS: Readonly<Record<string, readonly string[]>> = {
 
 const ANYWHERE = /\b(?:anywhere|worldwide|global|globally|any location)\b/
 
-const CA_PROVINCES = ['on', 'qc', 'bc', 'ab', 'mb', 'sk', 'ns', 'nb', 'nl', 'pe', 'ontario', 'quebec', 'british columbia', 'alberta', 'manitoba', 'saskatchewan', 'nova scotia', 'new brunswick']
-const US_STATES = ['al', 'ak', 'az', 'ar', 'ca', 'co', 'ct', 'de', 'fl', 'ga', 'hi', 'id', 'il', 'in', 'ia', 'ks', 'ky', 'la', 'ma', 'md', 'me', 'mi', 'mn', 'mo', 'ms', 'mt', 'nc', 'nd', 'ne', 'nh', 'nj', 'nm', 'nv', 'ny', 'oh', 'ok', 'or', 'pa', 'ri', 'sc', 'sd', 'tn', 'tx', 'ut', 'va', 'vt', 'wa', 'wi', 'wv', 'dc', 'california', 'new york', 'texas', 'washington', 'massachusetts', 'illinois', 'colorado']
+const CA_PROVINCES = [
+  'on',
+  'qc',
+  'bc',
+  'ab',
+  'mb',
+  'sk',
+  'ns',
+  'nb',
+  'nl',
+  'pe',
+  'ontario',
+  'quebec',
+  'british columbia',
+  'alberta',
+  'manitoba',
+  'saskatchewan',
+  'nova scotia',
+  'new brunswick',
+]
+const US_STATES = [
+  'al',
+  'ak',
+  'az',
+  'ar',
+  'ca',
+  'co',
+  'ct',
+  'de',
+  'fl',
+  'ga',
+  'hi',
+  'id',
+  'il',
+  'in',
+  'ia',
+  'ks',
+  'ky',
+  'la',
+  'ma',
+  'md',
+  'me',
+  'mi',
+  'mn',
+  'mo',
+  'ms',
+  'mt',
+  'nc',
+  'nd',
+  'ne',
+  'nh',
+  'nj',
+  'nm',
+  'nv',
+  'ny',
+  'oh',
+  'ok',
+  'or',
+  'pa',
+  'ri',
+  'sc',
+  'sd',
+  'tn',
+  'tx',
+  'ut',
+  'va',
+  'vt',
+  'wa',
+  'wi',
+  'wv',
+  'dc',
+  'california',
+  'new york',
+  'texas',
+  'washington',
+  'massachusetts',
+  'illinois',
+  'colorado',
+]
 
 /** Other names a city goes by in postings. */
 const CITY_ALIASES: Readonly<Record<string, readonly string[]>> = {
@@ -55,7 +132,7 @@ const CITY_ALIASES: Readonly<Record<string, readonly string[]>> = {
 export function placeText(value: string): string {
   return value
     .normalize('NFKD')
-    .replace(/[̀-ͯ]/g, '')
+    .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, ' ')
     .replace(/\s+/g, ' ')
@@ -69,8 +146,10 @@ function hasWord(text: string, phrase: string): boolean {
 /** The countries a place text names, directly or through a region, province or state. */
 export function countriesIn(text: string): Set<string> {
   const found = new Set<string>()
-  for (const [country, names] of Object.entries(COUNTRIES)) if (names.some((name) => hasWord(text, name))) found.add(country)
-  for (const [region, countries] of Object.entries(REGIONS)) if (hasWord(text, region)) countries.forEach((c) => found.add(c))
+  for (const [country, names] of Object.entries(COUNTRIES))
+    if (names.some((name) => hasWord(text, name))) found.add(country)
+  for (const [region, countries] of Object.entries(REGIONS))
+    if (hasWord(text, region)) countries.forEach((c) => found.add(c))
   return found
 }
 
@@ -81,7 +160,10 @@ export function countriesIn(text: string): Set<string> {
 function countriesFromParts(raw: string): Set<string> {
   const found = new Set<string>()
   for (const part of raw.split(/[;|\n]/)) {
-    const pieces = part.split(',').map((piece) => placeText(piece)).filter(Boolean)
+    const pieces = part
+      .split(',')
+      .map((piece) => placeText(piece))
+      .filter(Boolean)
     for (const piece of pieces.slice(1)) {
       if (CA_PROVINCES.includes(piece)) found.add('canada')
       else if (US_STATES.includes(piece)) found.add('us')
@@ -135,7 +217,10 @@ export function placeMatches(userPlace: string, location: ReadLocation): boolean
 }
 
 /** The countries a user can work remotely from: their stated regions, or their places' countries. */
-export function userRemoteCountries(remoteRegions: readonly string[], places: readonly string[]): {
+export function userRemoteCountries(
+  remoteRegions: readonly string[],
+  places: readonly string[],
+): {
   countries: Set<string>
   anywhere: boolean
 } {

@@ -2,7 +2,17 @@ import { describe, expect, it } from 'vitest'
 import { isStudentSearch, isStudentTitle, normalizeTitle, studentLevel } from '../src/index.ts'
 import { forAll, pick } from './property.ts'
 
-const ROLES = ['Software Developer', 'Data Analyst', 'AI Engineer', 'Machine Learning Engineer', 'Frontend Developer', 'QA Analyst', 'Security Engineer', 'Product Manager', 'Business Analyst']
+const ROLES = [
+  'Software Developer',
+  'Data Analyst',
+  'AI Engineer',
+  'Machine Learning Engineer',
+  'Frontend Developer',
+  'QA Analyst',
+  'Security Engineer',
+  'Product Manager',
+  'Business Analyst',
+]
 
 /** Every way a posting writes "for a student", as a function of the role. */
 const FORMS: ReadonlyArray<(role: string) => string> = [
@@ -29,7 +39,11 @@ describe('student markers are one level (property)', () => {
   it('every form of every role reads as student, with the same role left over', () => {
     forAll(
       500,
-      (random) => ({ role: pick(random, ROLES), form: Math.floor(random() * FORMS.length), casing: Math.floor(random() * CASES.length) }),
+      (random) => ({
+        role: pick(random, ROLES),
+        form: Math.floor(random() * FORMS.length),
+        casing: Math.floor(random() * CASES.length),
+      }),
       ({ role, form, casing }) => {
         const title = CASES[casing]!(FORMS[form]!(role))
         const level = studentLevel(title)

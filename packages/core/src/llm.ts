@@ -35,7 +35,10 @@ export function applyFitProposal(evaluation: Evaluation, proposal: FitProposal |
     {
       kind: 'info',
       code: 'model_score',
-      text: proposed > score ? `Model proposed ${proposed}; held at the rules' ceiling of ${score}.` : `Model score ${score} (rules gave ${evaluation.score}).`,
+      text:
+        proposed > score
+          ? `Model proposed ${proposed}; held at the rules' ceiling of ${score}.`
+          : `Model score ${score} (rules gave ${evaluation.score}).`,
     },
   ]
   return { ...evaluation, score, reasons }

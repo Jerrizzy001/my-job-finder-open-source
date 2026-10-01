@@ -28,17 +28,42 @@ function titlePoints(title: TitleMatch): Reason {
   const saved = title.savedTitle ? `"${title.savedTitle}"` : 'your search'
   switch (title.tier) {
     case 'exact':
-      return { kind: 'plus', code: 'title_exact', text: `Title is the same role as ${saved}.`, points: POINTS.title.exact }
+      return {
+        kind: 'plus',
+        code: 'title_exact',
+        text: `Title is the same role as ${saved}.`,
+        points: POINTS.title.exact,
+      }
     case 'close':
-      return { kind: 'plus', code: 'title_close', text: `Title contains every word of ${saved}.`, points: POINTS.title.close }
+      return {
+        kind: 'plus',
+        code: 'title_close',
+        text: `Title contains every word of ${saved}.`,
+        points: POINTS.title.close,
+      }
     case 'family': {
       const label = title.jobFamily ? FAMILY_LABELS[title.jobFamily] : 'the same kind of work'
       return title.reach === 'same'
-        ? { kind: 'plus', code: 'title_family', text: `Same kind of work as ${saved}: ${label}.`, points: POINTS.title.familySame }
-        : { kind: 'plus', code: 'title_neighbour', text: `Close kind of work to ${saved}: ${label}.`, points: POINTS.title.familyNeighbour }
+        ? {
+            kind: 'plus',
+            code: 'title_family',
+            text: `Same kind of work as ${saved}: ${label}.`,
+            points: POINTS.title.familySame,
+          }
+        : {
+            kind: 'plus',
+            code: 'title_neighbour',
+            text: `Close kind of work to ${saved}: ${label}.`,
+            points: POINTS.title.familyNeighbour,
+          }
     }
     case 'related':
-      return { kind: 'plus', code: 'title_related', text: 'Related title; its description reads as the work you search for.', points: POINTS.title.related }
+      return {
+        kind: 'plus',
+        code: 'title_related',
+        text: 'Related title; its description reads as the work you search for.',
+        points: POINTS.title.related,
+      }
     default:
       return { kind: 'fail', code: 'title_none', text: 'Title does not match your search.', points: 0 }
   }
@@ -47,25 +72,61 @@ function titlePoints(title: TitleMatch): Reason {
 function locationPoints(fit: RuleResult['location'], job: Job): Reason | null {
   switch (fit) {
     case 'place':
-      return { kind: 'plus', code: 'location_place', text: `In one of your places: ${job.location}.`, points: POINTS.location.place }
+      return {
+        kind: 'plus',
+        code: 'location_place',
+        text: `In one of your places: ${job.location}.`,
+        points: POINTS.location.place,
+      }
     case 'remote_in_region':
-      return { kind: 'plus', code: 'location_remote', text: `Remote, open to where you can work${job.location ? ` (${job.location})` : ''}.`, points: POINTS.location.remote_in_region }
+      return {
+        kind: 'plus',
+        code: 'location_remote',
+        text: `Remote, open to where you can work${job.location ? ` (${job.location})` : ''}.`,
+        points: POINTS.location.remote_in_region,
+      }
     case 'remote_region_unstated':
-      return { kind: 'minus', code: 'location_remote_unstated', text: 'Remote, but the posting does not say from where.', points: POINTS.location.remote_region_unstated }
+      return {
+        kind: 'minus',
+        code: 'location_remote_unstated',
+        text: 'Remote, but the posting does not say from where.',
+        points: POINTS.location.remote_region_unstated,
+      }
     case 'unknown':
-      return { kind: 'minus', code: 'location_unknown', text: 'The posting does not state a location.', points: POINTS.location.unknown }
+      return {
+        kind: 'minus',
+        code: 'location_unknown',
+        text: 'The posting does not state a location.',
+        points: POINTS.location.unknown,
+      }
     case 'unfiltered':
-      return { kind: 'info', code: 'location_unfiltered', text: 'You have not set places, so location is not checked.', points: POINTS.location.unfiltered }
+      return {
+        kind: 'info',
+        code: 'location_unfiltered',
+        text: 'You have not set places, so location is not checked.',
+        points: POINTS.location.unfiltered,
+      }
     default:
       return null
   }
 }
 
 function levelPoints(title: TitleMatch, rules: RuleResult): Reason {
-  if (!title.student) return { kind: 'plus', code: 'level_match', text: 'Level matches your search.', points: POINTS.level.notStudent }
+  if (!title.student)
+    return { kind: 'plus', code: 'level_match', text: 'Level matches your search.', points: POINTS.level.notStudent }
   if (rules.term.kind === 'fits')
-    return { kind: 'plus', code: 'term_fits', text: `Student role; the term (${rules.term.term.text.trim()}) ends ${formatMonth(rules.term.term.end)}, before you graduate.`, points: POINTS.level.termFits }
-  return { kind: 'plus', code: 'level_student', text: 'Student role, as you search for. No term dates found to check.', points: POINTS.level.noTerm }
+    return {
+      kind: 'plus',
+      code: 'term_fits',
+      text: `Student role; the term (${rules.term.term.text.trim()}) ends ${formatMonth(rules.term.term.end)}, before you graduate.`,
+      points: POINTS.level.termFits,
+    }
+  return {
+    kind: 'plus',
+    code: 'level_student',
+    text: 'Student role, as you search for. No term dates found to check.',
+    points: POINTS.level.noTerm,
+  }
 }
 
 function evidencePoints(job: Job, prefs: Preferences, profileSkills: readonly string[]): Reason {
@@ -106,12 +167,22 @@ export function scoreJob(input: {
   if (!job.description?.trim()) ceiling = Math.min(ceiling, POINTS.ceiling.noDescription)
   if (title.tier === 'related') ceiling = Math.min(ceiling, POINTS.ceiling.related)
   if (score > ceiling) {
-    reasons.push({ kind: 'info', code: 'ceiling', text: `Capped at ${ceiling} until there is more evidence.`, points: ceiling - score })
+    reasons.push({
+      kind: 'info',
+      code: 'ceiling',
+      text: `Capped at ${ceiling} until there is more evidence.`,
+      points: ceiling - score,
+    })
     score = ceiling
   }
 
   if (resemblesAny(job.title, prefs.rejectedTitles ?? [])) {
-    reasons.push({ kind: 'minus', code: 'rejected_before', text: 'You turned down a similar title before.', points: -POINTS.penalty.rejectedTitle })
+    reasons.push({
+      kind: 'minus',
+      code: 'rejected_before',
+      text: 'You turned down a similar title before.',
+      points: -POINTS.penalty.rejectedTitle,
+    })
     score -= POINTS.penalty.rejectedTitle
   }
 

@@ -41,7 +41,9 @@ export function evaluateJob(job: Job, prefs: Preferences, options: EvaluateOptio
         score: 0,
         ceiling: 0,
         title,
-        reasons: [{ kind: 'info', code: 'needs_description', text: 'Related title: kept until its description is read.' }],
+        reasons: [
+          { kind: 'info', code: 'needs_description', text: 'Related title: kept until its description is read.' },
+        ],
         policyVersion: MATCHING_POLICY_VERSION,
       }
     const verdict = decideRelated(job.description, searchedFamilies(prefs.roleTitles))
@@ -56,7 +58,13 @@ export function evaluateJob(job: Job, prefs: Preferences, options: EvaluateOptio
   }
 
   const rules = checkRules(job, prefs, title)
-  if (extra.length) rules.failures.splice(0, rules.failures.length, ...extra, ...rules.failures.filter((r) => r.code !== 'role_not_included'))
+  if (extra.length)
+    rules.failures.splice(
+      0,
+      rules.failures.length,
+      ...extra,
+      ...rules.failures.filter((r) => r.code !== 'role_not_included'),
+    )
   const scored = scoreJob({ job, prefs, title, rules, profileSkills: options.profileSkills ?? [] })
   return {
     status: rules.failures.length ? 'ineligible' : 'eligible',

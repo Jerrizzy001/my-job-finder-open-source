@@ -10,14 +10,20 @@ describe('related titles get a second look', () => {
   })
 
   it('is kept when the description is the searched work', () => {
-    const evaluation = evaluateJob(job({ title: 'Technology Analyst Intern', description: SOFTWARE_DESCRIPTION }), studentPrefs)
+    const evaluation = evaluateJob(
+      job({ title: 'Technology Analyst Intern', description: SOFTWARE_DESCRIPTION }),
+      studentPrefs,
+    )
     expect(evaluation.status).toBe('eligible')
     expect(evaluation.title.tier).toBe('related')
     expect(evaluation.score).toBeLessThanOrEqual(POINTS.ceiling.related)
   })
 
   it('is dropped when the description is other work', () => {
-    const evaluation = evaluateJob(job({ title: 'Technology Analyst Intern', description: BUSINESS_DESCRIPTION }), studentPrefs)
+    const evaluation = evaluateJob(
+      job({ title: 'Technology Analyst Intern', description: BUSINESS_DESCRIPTION }),
+      studentPrefs,
+    )
     expect(evaluation.status).toBe('ineligible')
     expect(evaluation.reasons.map((r) => r.code)).toEqual(['related_not_confirmed'])
   })
@@ -46,20 +52,28 @@ describe('scoring', () => {
   it('ranks exact above family above related', () => {
     const exact = evaluateJob(job({ description: SOFTWARE_DESCRIPTION }), studentPrefs).score
     const family = evaluateJob(job({ title: 'DevOps Intern', description: SOFTWARE_DESCRIPTION }), studentPrefs).score
-    const related = evaluateJob(job({ title: 'Technology Analyst Intern', description: SOFTWARE_DESCRIPTION }), studentPrefs).score
+    const related = evaluateJob(
+      job({ title: 'Technology Analyst Intern', description: SOFTWARE_DESCRIPTION }),
+      studentPrefs,
+    ).score
     expect(exact).toBeGreaterThan(family)
     expect(family).toBeGreaterThan(related)
   })
 
   it('counts profile skills found in the description', () => {
     const without = evaluateJob(job({ description: 'We use Elixir and Phoenix.' }), studentPrefs).score
-    const withSkills = evaluateJob(job({ description: 'We use Elixir and Phoenix.' }), studentPrefs, { profileSkills: ['Elixir', 'Phoenix'] }).score
+    const withSkills = evaluateJob(job({ description: 'We use Elixir and Phoenix.' }), studentPrefs, {
+      profileSkills: ['Elixir', 'Phoenix'],
+    }).score
     expect(withSkills).toBe(without + 2 * POINTS.evidence.perTerm)
   })
 
   it('lowers titles you turned down before', () => {
     const base = evaluateJob(job({ description: SOFTWARE_DESCRIPTION }), studentPrefs)
-    const rejected = evaluateJob(job({ description: SOFTWARE_DESCRIPTION }), { ...studentPrefs, rejectedTitles: ['Software Developer Co-op'] })
+    const rejected = evaluateJob(job({ description: SOFTWARE_DESCRIPTION }), {
+      ...studentPrefs,
+      rejectedTitles: ['Software Developer Co-op'],
+    })
     expect(rejected.score).toBe(base.score - POINTS.penalty.rejectedTitle)
     expect(rejected.reasons.at(-1)!.code).toBe('rejected_before')
   })
