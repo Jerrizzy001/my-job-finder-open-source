@@ -1,0 +1,10 @@
+{
+  "name": "@jobfinder/core",
+  "version": "0.1.0",
+  "description": "The matching engine: title families, student markers, preference rules, scoring with reasons. Pure TypeScript, no I/O.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}
