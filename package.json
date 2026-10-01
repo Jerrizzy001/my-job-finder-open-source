@@ -15,7 +15,7 @@
     "jobfinder": "packages/cli/bin/jobfinder.js"
   },
   "scripts": {
-    "jobfinder": "node packages/cli/src/main.ts",
+    "jobfinder": "node packages/cli/bin/jobfinder.js",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc -p tsconfig.json",

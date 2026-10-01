@@ -1,0 +1,10 @@
+[
+  {
+    "key": "work_authorization",
+    "question": "Are you legally authorized to work in the country of this job?",
+    "answer": "Yes"
+  },
+  { "key": "sponsorship", "question": "Will you now or in the future require visa sponsorship?", "answer": "No" },
+  { "key": "how_did_you_hear", "question": "How did you hear about this job?", "answer": "Company careers page" },
+  { "key": "pronouns", "question": "Pronouns", "answer": "they/them" }
+]

@@ -1,0 +1,118 @@
+# Verified by scripts/validate-boards.ts on 2026-10-01.
+# "jobs" and "sample" are what each board listed that day; they are not read back.
+boards:
+  - company: Stripe
+    source: greenhouse
+    token: stripe
+    jobs: 712
+    sample: 'Abuse Investigator | Abuse Research Engineer | Account Executive, AI Sales'
+  - company: Airbnb
+    source: greenhouse
+    token: airbnb
+    jobs: 151
+    sample: 'Account Manager | Associate Legal Counsel, Japan | Associate Principal, Procurement Innovation Supplier Programs'
+  - company: Discord
+    source: greenhouse
+    token: discord
+    jobs: 51
+    sample: 'Commercial Policy Lead | Data Scientist - Client Platform | Engineering Manager, Machine Learning (Safety)'
+  - company: Figma
+    source: greenhouse
+    token: figma
+    jobs: 165
+    sample: 'Account Executive, Enterprise | Account Executive, Enterprise (Bengaluru, India) | Account Executive, Enterprise (Berlin, Germany)'
+  - company: Cloudflare
+    source: greenhouse
+    token: cloudflare
+    jobs: 402
+    sample: 'Account Executive, FedCiv | Account Executive, Indonesia | AI Security Research & Red Team Engineer'
+  - company: Dropbox
+    source: greenhouse
+    token: dropbox
+    jobs: 39
+    sample: 'Account Executive | Business Development Manager, Strategic Partnerships | Business Development Representative - Japan (Remote)'
+  - company: GitLab
+    source: greenhouse
+    token: gitlab
+    jobs: 203
+    sample: 'AI Engineer | AI Transformation Owner, CRO | AI Transformation Owner, Product & Design'
+  - company: Reddit
+    source: greenhouse
+    token: reddit
+    jobs: 149
+    sample: '3rd Party Partnerships Manager - Signals | Ads Conversion Modeling, Machine Learning Engineering Manager | Backend Engineer, IAM'
+  - company: Databricks
+    source: greenhouse
+    token: databricks
+    jobs: 872
+    sample: 'デリバリーソリューションアーキテクト | Account Executive | Account Executive, Commercial - Hunter'
+  - company: Coinbase
+    source: greenhouse
+    token: coinbase
+    jobs: 220
+    sample: 'Accelerations Programs Intern | Accountant, Cyprus | Accounting Intern'
+  - company: Pinterest
+    source: greenhouse
+    token: pinterest
+    jobs: 171
+    sample: 'Administrative Business Partner I - Engineering, Product and Design | Client Account Manager II | Client Account Manager II, CPG'
+  - company: Instacart
+    source: greenhouse
+    token: instacart
+    jobs: 127
+    sample: 'Activation Sales Development Representative I | AI Solutions Lead, Marketing | Analytics Engineer II'
+  - company: Duolingo
+    source: greenhouse
+    token: duolingo
+    jobs: 82
+    sample: 'Ad Sales Lead, Programmatic | Ad Sales Lead - West | Associate Product Manager, Intern'
+  - company: Faire
+    source: greenhouse
+    token: faire
+    jobs: 79
+    sample: 'Account Executive Bilingual (Spanish/English) | Brand Operations Lead, Fulfillment | Core Strategy Senior Lead'
+  - company: Palantir
+    source: lever
+    token: palantir
+    jobs: 320
+    sample: 'Administrative Business Partner | Administrative Business Partner - ShipOS | Backend Software Engineer - Application Development'
+  - company: Spotify
+    source: lever
+    token: spotify
+    jobs: 79
+    sample: 'Android Engineer - Experience | Artist & Label Partnerships Contractor, Vietnam | Artist Label Partnerships Manager, Taiwan'
+  - company: Notion
+    source: ashby
+    token: notion
+    jobs: 134
+    sample: 'Software Engineer, Developer Platform | Business Development Representative, New York | Business Development Representative, San Francisco'
+  - company: OpenAI
+    source: ashby
+    token: openai
+    jobs: 836
+    sample: 'Technical Program Manager, Compute Infrastructure | Research Engineer | Account Director, Large Enterprise - Tokyo'
+  - company: Linear
+    source: ashby
+    token: linear
+    jobs: 30
+    sample: 'Senior / Staff Fullstack Engineer | Senior / Staff Product Engineer | Design Engineer (Web & Brand)'
+  - company: Ramp
+    source: ashby
+    token: ramp
+    jobs: 158
+    sample: 'Security Engineer, Cloud | Mobile Engineer, Android | Software Engineer, Frontend'
+  - company: Cohere
+    source: ashby
+    token: cohere
+    jobs: 132
+    sample: 'Senior Full-Stack Engineer, Internal Applications | Member of Technical Staff, Modeling | Revenue Enablement Program Manager - EMEA'
+  - company: Wealthsimple
+    source: ashby
+    token: wealthsimple
+    jobs: 43
+    sample: 'Lead, Workplace Operations | Future Opportunities - North Star: Calling all Canadians Abroad | Director, Partnerships - Retail Equity Capital'
+  - company: '1Password'
+    source: ashby
+    token: '1password'
+    jobs: 67
+    sample: 'Senior GTM Engineering Analyst | Manager, Security Incident Response | Senior Security Engineer, Incident Response'

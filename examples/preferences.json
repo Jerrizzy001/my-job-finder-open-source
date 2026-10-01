@@ -1,0 +1,11 @@
+{
+  "roleTitles": ["Software Engineer", "Backend Engineer", "Machine Learning Engineer"],
+  "excludedTitles": ["Staff Software Engineer", "Principal Software Engineer", "Engineering Manager"],
+  "locations": ["Toronto", "New York", "San Francisco"],
+  "remoteRegions": ["Canada", "US"],
+  "workModes": [],
+  "graduation": null,
+  "blockedCompanies": [],
+  "blockedTerms": ["clearance"],
+  "rejectedTitles": []
+}

@@ -5,5 +5,11 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@jobfinder/core": "0.1.0",
+    "@jobfinder/sources": "0.1.0",
+    "@jobfinder/tailor": "0.1.0",
+    "@jobfinder/server": "0.1.0"
   }
 }

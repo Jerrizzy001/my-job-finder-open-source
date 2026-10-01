@@ -1,0 +1,75 @@
+# Candidate boards for scripts/validate-boards.ts. Well-known employers on
+# public ATS boards; the script keeps the ones that answer.
+boards:
+  - company: Stripe
+    source: greenhouse
+    token: stripe
+  - company: Airbnb
+    source: greenhouse
+    token: airbnb
+  - company: Discord
+    source: greenhouse
+    token: discord
+  - company: Figma
+    source: greenhouse
+    token: figma
+  - company: Cloudflare
+    source: greenhouse
+    token: cloudflare
+  - company: Dropbox
+    source: greenhouse
+    token: dropbox
+  - company: GitLab
+    source: greenhouse
+    token: gitlab
+  - company: Reddit
+    source: greenhouse
+    token: reddit
+  - company: Databricks
+    source: greenhouse
+    token: databricks
+  - company: Coinbase
+    source: greenhouse
+    token: coinbase
+  - company: Pinterest
+    source: greenhouse
+    token: pinterest
+  - company: Instacart
+    source: greenhouse
+    token: instacart
+  - company: Duolingo
+    source: greenhouse
+    token: duolingo
+  - company: Faire
+    source: greenhouse
+    token: faire
+  - company: Palantir
+    source: lever
+    token: palantir
+  - company: Plaid
+    source: lever
+    token: plaid
+  - company: Spotify
+    source: lever
+    token: spotify
+  - company: Notion
+    source: ashby
+    token: notion
+  - company: OpenAI
+    source: ashby
+    token: openai
+  - company: Linear
+    source: ashby
+    token: linear
+  - company: Ramp
+    source: ashby
+    token: ramp
+  - company: Cohere
+    source: ashby
+    token: cohere
+  - company: Wealthsimple
+    source: ashby
+    token: wealthsimple
+  - company: 1Password
+    source: ashby
+    token: 1password

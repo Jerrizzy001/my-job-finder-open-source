@@ -1,0 +1,161 @@
+{
+  "jobs": [
+    {
+      "absolute_url": "https://job-boards.greenhouse.io/discord/jobs/8806482002",
+      "data_compliance": [],
+      "internal_job_id": 1000,
+      "location": {
+        "name": "San Francisco Bay Area"
+      },
+      "metadata": null,
+      "id": 8806482002,
+      "updated_at": "2026-09-15T12:52:11-04:00",
+      "requisition_id": "REQ-0",
+      "title": "Commercial Policy Lead",
+      "company_name": "Discord",
+      "first_published": "2026-09-15T12:52:11-04:00",
+      "language": "en",
+      "application_deadline": null,
+      "content": "&lt;p&gt;About the role&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Build features in TypeScript and React.&lt;/li&gt;&lt;li&gt;Write Python services and SQL queries.&lt;/li&gt;&lt;/ul&gt;",
+      "departments": [
+        {
+          "id": 4054683002,
+          "name": "Policy",
+          "parent_id": null,
+          "child_ids": []
+        }
+      ],
+      "offices": [
+        {
+          "id": 4000383002,
+          "name": "San Francisco, CA",
+          "location": "San Francisco, California, United States",
+          "parent_id": null,
+          "child_ids": []
+        }
+      ],
+      "ai_disclaimer": null,
+      "include_ai_disclaimer": false,
+      "ai_opt_out_request_url": "http://app2.greenhouse.io/ai_opt_out_request/job_post/8806482002/ai_opt_out"
+    },
+    {
+      "absolute_url": "https://job-boards.greenhouse.io/discord/jobs/8840756002",
+      "data_compliance": [],
+      "internal_job_id": 1001,
+      "location": {
+        "name": "San Francisco Bay Area"
+      },
+      "metadata": null,
+      "id": 8840756002,
+      "updated_at": "2026-09-24T17:26:49-04:00",
+      "requisition_id": "REQ-1",
+      "title": "Data Scientist - Client Platform",
+      "company_name": "Discord",
+      "first_published": "2026-09-24T17:26:49-04:00",
+      "language": "en",
+      "application_deadline": null,
+      "content": "&lt;p&gt;About the role&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Build features in TypeScript and React.&lt;/li&gt;&lt;li&gt;Write Python services and SQL queries.&lt;/li&gt;&lt;/ul&gt;",
+      "departments": [
+        {
+          "id": 4022531002,
+          "name": "Data Science & Engineering",
+          "parent_id": null,
+          "child_ids": []
+        }
+      ],
+      "offices": [
+        {
+          "id": 4000383002,
+          "name": "San Francisco, CA",
+          "location": "San Francisco, California, United States",
+          "parent_id": null,
+          "child_ids": []
+        }
+      ],
+      "ai_disclaimer": null,
+      "include_ai_disclaimer": false,
+      "ai_opt_out_request_url": "http://app2.greenhouse.io/ai_opt_out_request/job_post/8840756002/ai_opt_out"
+    },
+    {
+      "absolute_url": "https://job-boards.greenhouse.io/discord/jobs/8722538002",
+      "data_compliance": [],
+      "education": "education_optional",
+      "internal_job_id": 1002,
+      "location": {
+        "name": "San Francisco Bay Area (or Remote U.S.)"
+      },
+      "metadata": null,
+      "id": 8722538002,
+      "updated_at": "2026-09-22T17:36:02-04:00",
+      "requisition_id": "REQ-2",
+      "title": "Engineering Manager, Machine Learning (Safety)",
+      "company_name": "Discord",
+      "first_published": "2026-08-20T13:43:23-04:00",
+      "language": "en",
+      "application_deadline": null,
+      "content": "&lt;p&gt;About the role&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Build features in TypeScript and React.&lt;/li&gt;&lt;li&gt;Write Python services and SQL queries.&lt;/li&gt;&lt;/ul&gt;",
+      "departments": [
+        {
+          "id": 4107920002,
+          "name": "Developers",
+          "parent_id": null,
+          "child_ids": []
+        }
+      ],
+      "offices": [
+        {
+          "id": 4082816002,
+          "name": "Remote (U.S.)",
+          "location": null,
+          "parent_id": null,
+          "child_ids": []
+        }
+      ],
+      "ai_disclaimer": null,
+      "include_ai_disclaimer": false,
+      "ai_opt_out_request_url": "http://app2.greenhouse.io/ai_opt_out_request/job_post/8722538002/ai_opt_out"
+    },
+    {
+      "absolute_url": "https://job-boards.greenhouse.io/discord/jobs/8649856002",
+      "data_compliance": [],
+      "education": "education_optional",
+      "internal_job_id": 1003,
+      "location": {
+        "name": "Remote (West Coast)"
+      },
+      "metadata": null,
+      "id": 8649856002,
+      "updated_at": "2026-10-01T13:42:24-04:00",
+      "requisition_id": "REQ-3",
+      "title": "Engineering Manager, Platform Security",
+      "company_name": "Discord",
+      "first_published": "2026-07-27T17:23:50-04:00",
+      "language": "en",
+      "application_deadline": null,
+      "content": "&lt;p&gt;About the role&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Build features in TypeScript and React.&lt;/li&gt;&lt;li&gt;Write Python services and SQL queries.&lt;/li&gt;&lt;/ul&gt;",
+      "departments": [
+        {
+          "id": 4127961002,
+          "name": "Security Engineering",
+          "parent_id": null,
+          "child_ids": []
+        }
+      ],
+      "offices": [
+        {
+          "id": 4082816002,
+          "name": "Remote (U.S.)",
+          "location": null,
+          "parent_id": null,
+          "child_ids": []
+        }
+      ],
+      "ai_disclaimer": null,
+      "include_ai_disclaimer": false,
+      "ai_opt_out_request_url": "http://app2.greenhouse.io/ai_opt_out_request/job_post/8649856002/ai_opt_out"
+    }
+  ],
+  "meta": {
+    "total": 4
+  }
+}
