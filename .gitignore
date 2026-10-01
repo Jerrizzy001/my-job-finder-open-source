@@ -1,0 +1,15 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.DS_Store
+# Your data. Never commit it.
+.jobfinder/
+drafts/
+/preferences.json
+/profile.json
+/master-resume.md
+/answers.json
+/catalog.yaml
+*.sqlite
+*.sqlite-*
+coverage/

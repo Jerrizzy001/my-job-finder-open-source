@@ -1,0 +1,41 @@
+{
+  "name": "my-job-finder-open-source",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local-first job finder: discover postings from public ATS boards, match them with explainable reasons, draft tailored resumes locally.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "bin": {
+    "jobfinder": "packages/cli/bin/jobfinder.js"
+  },
+  "scripts": {
+    "jobfinder": "node packages/cli/src/main.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc -p tsconfig.json",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "build:web": "npm run build -w @jobfinder/web",
+    "build:extension": "npm run build -w @jobfinder/extension",
+    "bench": "node bench/titles.ts",
+    "leak-check": "node scripts/leak-check.ts",
+    "validate-boards": "node scripts/validate-boards.ts"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.4",
+    "@types/node": "22.20.2",
+    "esbuild": "0.28.1",
+    "eslint": "9.39.4",
+    "prettier": "3.8.4",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.63.0",
+    "vitest": "4.1.11"
+  }
+}
