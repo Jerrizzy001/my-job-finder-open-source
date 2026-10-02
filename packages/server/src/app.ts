@@ -349,6 +349,14 @@ export function createApp(options: AppOptions): App {
     ['GET', /^\/api\/runs$/, async () => ({ runs: recentRuns(db), boards: boardStatus(db) })],
     // Extension routes: token required.
     [
+      'GET',
+      /^\/api\/ext\/ping$/,
+      async (req) => {
+        requireExtension(req)
+        return { ok: true, llm: llm?.model ?? null }
+      },
+    ],
+    [
       'POST',
       /^\/api\/ext\/package$/,
       async (req) => {

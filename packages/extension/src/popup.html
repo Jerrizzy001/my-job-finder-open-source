@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>jobfinder</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header>
+      <strong>job<span>finder</span></strong> <small>local</small>
+    </header>
+    <main id="main"></main>
+    <details id="settings">
+      <summary>Connection</summary>
+      <form id="settings-form">
+        <label>Port <input id="port" type="number" min="1" max="65535" value="4321" /></label>
+        <label>Token <input id="token" type="password" autocomplete="off" placeholder="from jobfinder serve" /></label>
+        <button type="submit">Save</button>
+        <p id="settings-status" role="status"></p>
+      </form>
+    </details>
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>

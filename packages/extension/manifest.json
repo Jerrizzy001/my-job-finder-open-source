@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "jobfinder (local): review-before-submit for Ashby",
+  "short_name": "jobfinder",
+  "version": "0.1.0",
+  "description": "Fills Ashby applications from your local jobfinder, then stops for your review. You press Submit.",
+  "permissions": ["storage", "activeTab"],
+  "host_permissions": ["http://127.0.0.1/*"],
+  "background": { "service_worker": "background.js", "type": "module" },
+  "action": { "default_popup": "popup.html", "default_title": "jobfinder" },
+  "content_scripts": [
+    {
+      "matches": ["https://jobs.ashbyhq.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": { "16": "icons/16.png", "48": "icons/48.png", "128": "icons/128.png" }
+}

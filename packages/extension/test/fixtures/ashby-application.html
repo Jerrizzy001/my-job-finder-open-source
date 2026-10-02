@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <!-- A synthetic page shaped like an Ashby application form, for testing the filler. -->
+  <head>
+    <meta charset="utf-8" />
+    <title>Backend Engineer @ Example</title>
+  </head>
+  <body>
+    <form
+      id="application"
+      onsubmit="
+        window.__submitted = true
+        event.preventDefault()
+      "
+    >
+      <div class="ashby-application-form-field-entry">
+        <label class="ashby-application-form-question-title" for="_systemfield_name">Name*</label>
+        <input id="_systemfield_name" name="_systemfield_name" type="text" required />
+      </div>
+      <div class="ashby-application-form-field-entry">
+        <label class="ashby-application-form-question-title" for="_systemfield_email">Email*</label>
+        <input id="_systemfield_email" name="_systemfield_email" type="email" required />
+      </div>
+      <div class="ashby-application-form-field-entry">
+        <label class="ashby-application-form-question-title" for="phone">Phone</label>
+        <input id="phone" name="phone" type="tel" />
+      </div>
+      <div class="ashby-application-form-field-entry">
+        <label class="ashby-application-form-question-title" for="_systemfield_resume">Resume*</label>
+        <input id="_systemfield_resume" name="_systemfield_resume" type="file" required />
+      </div>
+      <div class="ashby-application-form-field-entry">
+        <label class="ashby-application-form-question-title" for="linkedin">LinkedIn Profile</label>
+        <input id="linkedin" name="linkedin" type="url" />
+      </div>
+      <div class="ashby-application-form-field-entry">
+        <label class="ashby-application-form-question-title" for="github">GitHub</label>
+        <input id="github" name="github" type="url" />
+      </div>
+      <div class="ashby-application-form-field-entry">
+        <label class="ashby-application-form-question-title"
+          >Will you now or in the future require visa sponsorship?*</label
+        >
+        <div>
+          <button type="button" onclick="this.dataset.picked = 1">Yes</button
+          ><button type="button" onclick="this.dataset.picked = 1">No</button>
+        </div>
+      </div>
+      <div class="ashby-application-form-field-entry">
+        <label class="ashby-application-form-question-title" for="hear">How did you hear about this job?</label>
+        <select id="hear" name="hear">
+          <option value="">Select…</option>
+          <option value="li">LinkedIn</option>
+          <option value="cc">Company careers page</option>
+        </select>
+      </div>
+      <div class="ashby-application-form-field-entry">
+        <label class="ashby-application-form-question-title" for="why">Why do you want to work here?*</label>
+        <textarea id="why" name="why" required></textarea>
+      </div>
+      <div class="ashby-application-form-field-entry">
+        <label for="consent"
+          ><input id="consent" name="consent" type="checkbox" /> I agree to the privacy policy*</label
+        >
+      </div>
+      <button type="submit" id="submit" onclick="window.__submitClicked = true">Submit Application</button>
+    </form>
+  </body>
+</html>
