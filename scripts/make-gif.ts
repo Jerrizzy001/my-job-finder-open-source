@@ -7,8 +7,9 @@
  * Each frame is `path:seconds`. Frames are scaled to the given width.
  * docs/screenshots.md says how the screenshots themselves are captured.
  */
-import { readFileSync, writeFileSync } from 'node:fs'
+import { readFileSync, realpathSync, writeFileSync } from 'node:fs'
 import { inflateSync } from 'node:zlib'
+import { fileURLToPath } from 'node:url'
 
 type Image = { width: number; height: number; rgb: Uint8Array }
 
@@ -224,7 +225,7 @@ export function encodeGif(frames: { image: Image; seconds: number }[]): Buffer {
   return Buffer.concat(parts)
 }
 
-if (import.meta.main) {
+if (process.argv[1] && fileURLToPath(import.meta.url) === realpathSync(process.argv[1])) {
   const [out, widthText, ...specs] = process.argv.slice(2)
   if (!out || !widthText || !specs.length) {
     console.error('usage: node scripts/make-gif.ts out.gif <width> frame.png:seconds …')

@@ -7,7 +7,8 @@
  * `myjobfinder.live`, which the README links to on purpose.
  */
 import { execFileSync } from 'node:child_process'
-import { readFileSync } from 'node:fs'
+import { readFileSync, realpathSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
 
 export const PATTERNS: ReadonlyArray<readonly [string, RegExp]> = [
   ['private hostname', /myjobfinder(?!\.live\b)/i],
@@ -36,7 +37,7 @@ function trackedFiles(): string[] {
   return out.split('\n').filter((path) => path && !SKIP.some((skip) => skip.test(path)))
 }
 
-if (import.meta.main) {
+if (process.argv[1] && fileURLToPath(import.meta.url) === realpathSync(process.argv[1])) {
   const self = 'scripts/leak-check.ts'
   const hits = trackedFiles()
     .filter((path) => path !== self && path !== 'scripts/leak-check.test.ts')
