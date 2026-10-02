@@ -17,8 +17,10 @@ export type SourceKey =
  *
  * `token` is the board's id on its ATS: the Greenhouse board token, the Lever
  * or Ashby org slug, the SmartRecruiters company id, the Workable account,
- * the iCIMS portal host, the Dayforce namespace. Workday also needs `host`
- * and `site`; the JSON-LD adapter needs `url` (a careers page listing links).
+ * the iCIMS portal's first host label (`careers-acme` for careers-acme.icims.com),
+ * the Workday tenant, the Dayforce client namespace. Workday also needs `host`
+ * and `site`; Dayforce may set `site` (the job board code, default
+ * CANDIDATEPORTAL); the JSON-LD adapter needs `url` (a careers page).
  */
 export type Board = {
   company: string
@@ -27,6 +29,8 @@ export type Board = {
   host?: string
   site?: string
   url?: string
+  /** JSON-LD adapter: a regular expression job links on the listing page must match. */
+  linkPattern?: string
   /** Hours between reads. Default 6. */
   cadenceHours?: number
 }

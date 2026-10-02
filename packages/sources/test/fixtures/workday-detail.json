@@ -1,0 +1,26 @@
+{
+  "jobPostingInfo": {
+    "id": "abc123",
+    "title": "Software Engineer, OpenShell",
+    "jobDescription": "<p>About the role</p><ul><li>Build features in TypeScript and React.</li><li>Write Python services and SQL queries.</li></ul>",
+    "location": "US, Remote",
+    "postedOn": "Posted 30+ Days Ago",
+    "startDate": "2026-07-31",
+    "timeType": "Full time",
+    "jobReqId": "JR2020825",
+    "jobPostingId": "Software-Engineer--OpenShell_JR2020825",
+    "jobPostingSiteId": "External",
+    "country": {
+      "descriptor": "United States of America",
+      "id": "site-0001"
+    },
+    "canApply": true,
+    "posted": true,
+    "externalUrl": "https://acme.myworkdayjobs.com/External/job/US-Remote/Software-Engineer--OpenShell_JR2020825"
+  },
+  "hiringOrganization": {
+    "name": "Acme Corp",
+    "url": ""
+  },
+  "userAuthenticated": false
+}

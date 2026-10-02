@@ -1,0 +1,33 @@
+{
+  "offset": 0,
+  "limit": 100,
+  "totalFound": 2,
+  "content": [
+    {
+      "id": "744000001234567",
+      "name": "Software Engineer",
+      "uuid": "00000000-0000-4000-8000-000000000001",
+      "refNumber": "REF-1",
+      "company": { "identifier": "AcmeCorp", "name": "Acme Corp" },
+      "releasedDate": "2026-09-20T12:00:00.000Z",
+      "location": {
+        "city": "Toronto",
+        "region": "ON",
+        "country": "ca",
+        "remote": false,
+        "fullLocation": "Toronto, ON, Canada"
+      },
+      "typeOfEmployment": { "id": "permanent", "label": "Full-time" },
+      "ref": "https://api.smartrecruiters.com/v1/companies/AcmeCorp/postings/744000001234567"
+    },
+    {
+      "id": "744000001234568",
+      "name": "Account Executive",
+      "uuid": "00000000-0000-4000-8000-000000000002",
+      "company": { "identifier": "AcmeCorp", "name": "Acme Corp" },
+      "releasedDate": "2026-09-21T12:00:00.000Z",
+      "location": { "city": "Chicago", "region": "IL", "country": "us", "remote": false },
+      "ref": "https://api.smartrecruiters.com/v1/companies/AcmeCorp/postings/744000001234568"
+    }
+  ]
+}

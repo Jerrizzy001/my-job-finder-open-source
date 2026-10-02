@@ -49,6 +49,8 @@ export type RunOptions = {
 
 const DEFAULT_MAX_ITEMS = 5000
 const MAX_PAGES = 200
+/** For a list without descriptions, the share of the request budget listing may use; the rest reads details. */
+export const LIST_SHARE = 0.5
 
 function outcomeFor(error: unknown): { outcome: RunOutcome; message: string } {
   if (!(error instanceof SourceError))
@@ -71,7 +73,29 @@ function outcomeFor(error: unknown): { outcome: RunOutcome; message: string } {
 export async function runBoard(board: Board, options: RunOptions = {}): Promise<RunResult> {
   const startedAt = new Date((options.clock ?? { now: Date.now }).now()).toISOString()
   const adapter = adapterFor(board.source)
-  const hosts = adapter.allowedHosts(board)
+  let hosts: string[]
+  try {
+    hosts = adapter.allowedHosts(board)
+  } catch (error) {
+    // A misconfigured board (a bad host or token) fails its run; it never throws past the runner.
+    const now = new Date((options.clock ?? { now: Date.now }).now()).toISOString()
+    const { message } = outcomeFor(error)
+    return {
+      board,
+      outcome: 'source_error',
+      message,
+      jobs: [],
+      seenIds: [],
+      seen: 0,
+      selected: 0,
+      hydrated: 0,
+      gone: 0,
+      requests: 0,
+      bytes: 0,
+      startedAt: now,
+      finishedAt: now,
+    }
+  }
   const http = new BoundedHttp({
     allowedHosts: hosts,
     limits: options.limits,
@@ -89,7 +113,15 @@ export async function runBoard(board: Board, options: RunOptions = {}): Promise<
 
   try {
     let cursor: string | null = null
+    const listBudget = adapter.listHasDescriptions
+      ? Infinity
+      : Math.max(1, Math.floor(http.limits.maxRequests * LIST_SHARE))
     for (let page = 0; page < MAX_PAGES; page++) {
+      if (page > 0 && http.requests >= listBudget) {
+        outcome = 'complete_partial'
+        message = `Listed ${listBudget} pages and kept the rest of the request budget for reading the selected postings.`
+        break
+      }
       const remainingItems = maxItems - seenIds.size
       if (remainingItems <= 0) {
         outcome = 'complete_partial'

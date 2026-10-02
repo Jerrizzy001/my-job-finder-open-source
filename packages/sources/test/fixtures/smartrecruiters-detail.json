@@ -1,0 +1,25 @@
+{
+  "id": "744000001234567",
+  "name": "Software Engineer",
+  "releasedDate": "2026-09-20T12:00:00.000Z",
+  "location": {
+    "city": "Toronto",
+    "region": "ON",
+    "country": "ca",
+    "remote": false,
+    "fullLocation": "Toronto, ON, Canada"
+  },
+  "typeOfEmployment": { "id": "permanent", "label": "Full-time" },
+  "postingUrl": "https://jobs.smartrecruiters.com/AcmeCorp/744000001234567-software-engineer",
+  "jobAd": {
+    "sections": {
+      "companyDescription": { "title": "Company Description", "text": "<p>Acme builds things.</p>" },
+      "jobDescription": { "title": "Job Description", "text": "<p>Build features in TypeScript and React.</p>" },
+      "qualifications": { "title": "Qualifications", "text": "<ul><li>Python and SQL</li></ul>" },
+      "additionalInformation": {
+        "title": "Additional Information",
+        "text": "<p>Hybrid, two days a week in the office.</p>"
+      }
+    }
+  }
+}

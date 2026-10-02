@@ -1,0 +1,33 @@
+# More board types. Copy entries into your catalog.yaml.
+# Checked once on 2026-10-01; boards change, so run scripts/validate-boards.ts on your copy.
+boards:
+  # Workable: the account name in apply.workable.com/<account>
+  - company: Hugging Face
+    source: workable
+    token: huggingface
+  # iCIMS: the first label of the portal host, <label>.icims.com
+  - company: Atlassian
+    source: icims
+    token: careers-americas
+  # Dayforce: the namespace in jobs.dayforcehcm.com/en-US/<namespace>/<BOARD>
+  - company: Toronto Humane Society
+    source: dayforce
+    token: torontohumanesociety
+    site: CANDIDATEPORTAL
+  # An employer's own careers page with schema.org JobPosting data
+  - company: Example Co
+    source: jsonld
+    token: example
+    url: https://example.com/careers
+  # Workday: the tenant, the career site host and the site name, all from the
+  # career site URL https://<host>/<site>. Replace these placeholders.
+  - company: Example Workday Employer
+    source: workday
+    token: <tenant>
+    host: <tenant>.<wdN>.myworkdayjobs.com
+    site: <SiteName>
+  # SmartRecruiters: supported, but its API host's robots.txt currently allows
+  # only LinkedInBot, so this run reports blocked_by_robots. Left here so you can see that.
+  - company: SmartRecruiters
+    source: smartrecruiters
+    token: smartrecruiters

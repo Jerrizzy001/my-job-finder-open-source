@@ -143,6 +143,8 @@ const MIGRATIONS: readonly string[] = [
     value TEXT NOT NULL
   );
   `,
+  // 2: the JSON-LD adapter's link pattern
+  'ALTER TABLE boards ADD COLUMN link_pattern TEXT;',
 ]
 
 export type Db = DatabaseSync

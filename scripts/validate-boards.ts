@@ -23,8 +23,8 @@ const politeness = new Politeness()
 const live: CatalogEntry[] = []
 
 for (const candidate of candidates) {
-  const { company, source, token, host, site, url, cadenceHours } = candidate
-  const board = { company, source, token, host, site, url, cadenceHours }
+  const { company, source, token, host, site, url, linkPattern, cadenceHours } = candidate
+  const board = { company, source, token, host, site, url, linkPattern, cadenceHours }
   const result = await runBoard(board, { politeness, limits: { maxRequests: 4 }, maxItems: 2000 })
   const ok = (result.outcome === 'complete_full' || result.outcome === 'complete_partial') && result.seen > 0
   console.log(

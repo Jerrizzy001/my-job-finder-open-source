@@ -115,3 +115,40 @@ describe('runner bounds', () => {
     expect(result.jobs.every((job) => job.aiInput === false)).toBe(true)
   })
 })
+
+describe('list-first budget', () => {
+  it('keeps half the request budget for detail reads', async () => {
+    const page = (n: number) =>
+      JSON.stringify({
+        totalFound: 1000,
+        content: Array.from({ length: 100 }, (_, i) => ({ id: `${n}-${i}`, name: 'Software Engineer' })),
+      })
+    const routes: Record<string, { body: string }> = {
+      'https://api.smartrecruiters.com/robots.txt': { body: 'User-agent: *\nAllow: /' },
+    }
+    for (let n = 0; n < 10; n++)
+      routes[`https://api.smartrecruiters.com/v1/companies/a/postings?limit=100&offset=${n * 100}`] = { body: page(n) }
+    const { fetch } = fakeFetch(
+      new Proxy(routes, {
+        get: (target, key: string) =>
+          target[key] ??
+          (key.includes('/postings/')
+            ? {
+                body: JSON.stringify({
+                  id: key.split('/').at(-1),
+                  name: 'Software Engineer',
+                  jobAd: { sections: { jobDescription: { text: 'x' } } },
+                }),
+              }
+            : undefined),
+      }),
+    )
+    const result = await runBoard(
+      { company: 'A', source: 'smartrecruiters', token: 'a' },
+      { fetch, clock: fakeClock(), limits: { maxRequests: 10 } },
+    )
+    expect(result.outcome).toBe('complete_partial')
+    expect(result.seen).toBe(500)
+    expect(result.hydrated).toBe(5)
+  })
+})

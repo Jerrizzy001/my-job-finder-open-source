@@ -26,6 +26,7 @@ type BoardRow = {
   host: string | null
   site: string | null
   url: string | null
+  link_pattern: string | null
   cadence_hours: number
   consecutive_failures: number
   paused_at: string | null
@@ -42,6 +43,7 @@ export function boardFromRow(row: BoardRow): Board {
   if (row.host) board.host = row.host
   if (row.site) board.site = row.site
   if (row.url) board.url = row.url
+  if (row.link_pattern) board.linkPattern = row.link_pattern
   return board
 }
 
@@ -49,10 +51,10 @@ export function boardFromRow(row: BoardRow): Board {
 export function syncBoards(db: Db, catalog: readonly CatalogEntry[], now = new Date()): void {
   transaction(db, () => {
     const upsert = db.prepare(`
-      INSERT INTO boards (source, token, company, host, site, url, cadence_hours)
-      VALUES (?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO boards (source, token, company, host, site, url, link_pattern, cadence_hours)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
       ON CONFLICT(source, token) DO UPDATE SET
-        company = excluded.company, host = excluded.host, site = excluded.site, url = excluded.url,
+        company = excluded.company, host = excluded.host, site = excluded.site, url = excluded.url, link_pattern = excluded.link_pattern,
         cadence_hours = excluded.cadence_hours,
         paused_at = CASE WHEN boards.paused_reason = 'removed_from_catalog' THEN NULL ELSE boards.paused_at END,
         paused_reason = CASE WHEN boards.paused_reason = 'removed_from_catalog' THEN NULL ELSE boards.paused_reason END`)
@@ -66,6 +68,7 @@ export function syncBoards(db: Db, catalog: readonly CatalogEntry[], now = new D
         entry.host ?? null,
         entry.site ?? null,
         entry.url ?? null,
+        entry.linkPattern ?? null,
         Number(entry.cadenceHours ?? 6),
       )
     }

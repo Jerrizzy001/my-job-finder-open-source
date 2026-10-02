@@ -1,0 +1,85 @@
+{
+  "jobPostings": [
+    {
+      "clientNamespace": "acme",
+      "jobBoardId": 1,
+      "jobPostingId": 894,
+      "jobReqId": 216,
+      "jobTitle": "Veterinarian - Public Veterinary Services",
+      "jobDescription": "<p>About the role</p><ul><li>Build features in TypeScript and React.</li><li>Write Python services and SQL queries.</li></ul>",
+      "hasVirtualLocation": false,
+      "postingStartTimestampUTC": "2026-09-15T04:00:00+00:00",
+      "postingExpiryTimestampUTC": null,
+      "isEvergreen": true,
+      "reapplyPeriodDays": null,
+      "postingLocations": [
+        {
+          "formattedAddress": "Toronto, ON, CA",
+          "locationId": 1001,
+          "locationType": 1,
+          "isoCountryCode": "CA",
+          "stateCode": "ON",
+          "cityName": "Toronto",
+          "coordinates": null
+        },
+        {
+          "formattedAddress": "Toronto, ON, CA",
+          "locationId": 1,
+          "locationType": 2,
+          "isoCountryCode": "CA",
+          "stateCode": "ON",
+          "cityName": "Toronto",
+          "coordinates": null
+        }
+      ],
+      "postingAppliedStatus": {
+        "jobPostingId": 894,
+        "hasApplied": false,
+        "canApplyAgain": true
+      },
+      "searchScore": 0
+    },
+    {
+      "clientNamespace": "acme",
+      "jobBoardId": 1,
+      "jobPostingId": 884,
+      "jobReqId": 218,
+      "jobTitle": "Client Service Agent - Temporary Full Time  (12 months)",
+      "jobDescription": "<p>About the role</p><ul><li>Build features in TypeScript and React.</li><li>Write Python services and SQL queries.</li></ul>",
+      "hasVirtualLocation": false,
+      "postingStartTimestampUTC": "2026-09-11T04:00:00+00:00",
+      "postingExpiryTimestampUTC": null,
+      "isEvergreen": false,
+      "reapplyPeriodDays": null,
+      "postingLocations": [
+        {
+          "formattedAddress": "Toronto, ON, CA",
+          "locationId": 1001,
+          "locationType": 1,
+          "isoCountryCode": "CA",
+          "stateCode": "ON",
+          "cityName": "Toronto",
+          "coordinates": null
+        },
+        {
+          "formattedAddress": "Toronto, ON, CA",
+          "locationId": 1,
+          "locationType": 2,
+          "isoCountryCode": "CA",
+          "stateCode": "ON",
+          "cityName": "Toronto",
+          "coordinates": null
+        }
+      ],
+      "postingAppliedStatus": {
+        "jobPostingId": 884,
+        "hasApplied": false,
+        "canApplyAgain": true
+      },
+      "searchScore": 0
+    }
+  ],
+  "maxCount": 2,
+  "offset": 0,
+  "count": 2
+}
