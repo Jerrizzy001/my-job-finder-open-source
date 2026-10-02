@@ -29,7 +29,11 @@ const REWRITES: ReadonlyArray<readonly [RegExp, string]> = [
 
 /** Lower case, accents off, punctuation as spaces, joined forms joined. */
 export function normalizeTitle(title: string): string {
-  let text = title.slice(0, 300).normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+  let text = title
+    .slice(0, 300)
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
   for (const [pattern, replacement] of REWRITES) text = text.replace(pattern, replacement)
   return text.replace(/\s+/g, ' ').trim()
 }

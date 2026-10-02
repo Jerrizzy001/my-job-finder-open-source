@@ -12,8 +12,13 @@ import {
   resolveWorkspace,
   syncBoards,
   boardStatus,
+  DEFAULT_DRAFT_LIMIT,
+  llmUsageTotals,
+  tailorBest,
+  tailorJob,
   type Workspace,
 } from '@jobfinder/server'
+import { llmConfigFromEnv, openAiCompatible } from '@jobfinder/tailor'
 import { intFlag, parseArgs } from './args.ts'
 
 export const HOSTED_LINE = 'Want this across thousands of boards, continuously? https://myjobfinder.live'
@@ -26,7 +31,7 @@ Usage: jobfinder <command> [options]
   discover [--all]             Read the boards that are due (--all: every board, now)
   match [--force] [--top N]    Score open postings against preferences.json
   tailor [--limit N] [--job ID]  Draft a resume and cover letter for the best matches (default 10)
-  run                          discover, then match, then tailor — the one to put in cron
+  run [--all] [--limit N]      discover, then match, then tailor — the one to put in cron
   serve [--port N]             Start the local UI and API on http://127.0.0.1:4321
   boards                       Show each board's last outcome and open postings
   export --csv [--out FILE]    Write your matches as CSV (stdout by default)
@@ -87,6 +92,35 @@ export async function runMatch(ws: Workspace, force: boolean) {
   return summary
 }
 
+function llmFromEnv() {
+  const config = llmConfigFromEnv()
+  return config ? openAiCompatible(config) : null
+}
+
+export async function runTailor(ws: Workspace, options: { limit: number; jobId?: number }) {
+  const db = open(ws)
+  const llm = llmFromEnv()
+  console.log(
+    llm
+      ? `Drafting with ${llm.model}…`
+      : 'No model configured: drafting your master resume and a templated cover letter (see docs/FAQ.md to add one).',
+  )
+  const before = llmUsageTotals(db)
+  const results = options.jobId
+    ? [await tailorJob(db, ws, options.jobId, llm)]
+    : await tailorBest(db, ws, { limit: options.limit, llm, log: (line) => console.log(`  ${line}`) })
+  if (options.jobId) console.log(`  ${relative(ws.root, results[0]!.dir)}`)
+  if (!results.length) console.log('  Nothing new to draft: every top match already has a draft.')
+  const after = llmUsageTotals(db)
+  if (after.calls > before.calls)
+    console.log(
+      `Model use this run: ${after.calls - before.calls} calls, ${after.promptTokens - before.promptTokens} prompt + ${after.completionTokens - before.completionTokens} completion tokens${after.costUsd !== null ? `, $${((after.costUsd ?? 0) - (before.costUsd ?? 0)).toFixed(4)}` : ''}.`,
+    )
+  const unverified = results.filter((result) => !result.manifest.verified).length
+  if (unverified) console.log(`${unverified} draft(s) did not pass verification; their manifest.json lists why.`)
+  return results
+}
+
 export const commands: Record<string, Command> = {
   async init(argv) {
     const { flags } = parseArgs(argv, ['student', 'force'])
@@ -124,6 +158,22 @@ Next:
     const ws = resolveWorkspace()
     await runMatch(ws, flags.force === true)
     printTop(ws, intFlag(flags, 'top', 10))
+  },
+
+  async tailor(argv) {
+    const { flags } = parseArgs(argv, ['limit=', 'job='])
+    const jobId = flags.job === undefined ? undefined : intFlag(flags, 'job', 0)
+    await runTailor(resolveWorkspace(), { limit: intFlag(flags, 'limit', DEFAULT_DRAFT_LIMIT), jobId })
+  },
+
+  async run(argv) {
+    const { flags } = parseArgs(argv, ['all', 'limit='])
+    const ws = resolveWorkspace()
+    await runDiscover(ws, flags.all === true)
+    await runMatch(ws, false)
+    await runTailor(ws, { limit: intFlag(flags, 'limit', DEFAULT_DRAFT_LIMIT) })
+    console.log(`\nDone. Open ${relative(process.cwd(), ws.draftsDir) || 'drafts'}/ to read your drafts.`)
+    console.log(HOSTED_LINE)
   },
 
   async boards() {

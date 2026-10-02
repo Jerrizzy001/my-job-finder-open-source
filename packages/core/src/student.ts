@@ -39,7 +39,11 @@ const TERM_WORDS = /\b(?:summer|fall|autumn|winter|spring|20\d\d|\d{1,2}[ -]?mon
 
 /** Lower case with accents off; punctuation kept. */
 function fold(title: string): string {
-  return title.slice(0, 300).normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+  return title
+    .slice(0, 300)
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
 }
 
 /** Whether a title is written for a student (any marker, any form). */
