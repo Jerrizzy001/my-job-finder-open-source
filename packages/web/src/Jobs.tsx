@@ -25,6 +25,17 @@ function place(job: ListedJob): string {
   return [job.location, repeats ? null : mode].filter(Boolean).join(' · ') || 'Location not stated'
 }
 
+/** A link can open a job or a tab: `#/jobs/42`, `#/jobs?stage=drafted`. */
+function jobFromHash(): number | null {
+  const id = Number(/^#\/jobs\/(\d+)/.exec(window.location.hash)?.[1])
+  return Number.isInteger(id) && id > 0 ? id : null
+}
+
+function stageFromHash(): Stage {
+  const stage = new URLSearchParams(window.location.hash.split('?')[1] ?? '').get('stage')
+  return TABS.some((tab) => tab.stage === stage) ? (stage as Stage) : 'for_you'
+}
+
 /** Two panes from 900px; below that the list and the detail take turns. */
 function useWide(): boolean {
   const query = '(min-width: 900px)'
@@ -258,8 +269,8 @@ function Detail({ id, onChanged, onBack }: { id: number; onChanged: () => void; 
 export function Jobs({ refreshKey, onDiscover }: { refreshKey: number; onDiscover: () => void }) {
   const [jobs, setJobs] = useState<ListedJob[] | null>(null)
   const [error, setError] = useState<string | null>(null)
-  const [stage, setStage] = useState<Stage>('for_you')
-  const [selected, setSelected] = useState<number | null>(null)
+  const [stage, setStage] = useState<Stage>(stageFromHash)
+  const [selected, setSelected] = useState<number | null>(jobFromHash)
   const listRef = useRef<HTMLUListElement>(null)
   const wide = useWide()
 

@@ -12,8 +12,9 @@ const ROUTES: { route: Route; label: string }[] = [
   { route: 'profile', label: 'Profile & answers' },
 ]
 
+/** `#/jobs`, `#/jobs/42`, `#/jobs?stage=drafted`, `#/preferences`, `#/profile`. */
 function routeFromHash(): Route {
-  const hash = window.location.hash.replace(/^#\/?/, '')
+  const hash = window.location.hash.replace(/^#\/?/, '').split(/[/?]/)[0] ?? ''
   return ROUTES.some((r) => r.route === hash) ? (hash as Route) : 'jobs'
 }
 
