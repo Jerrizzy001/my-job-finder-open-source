@@ -6,4 +6,4 @@
  * `policy.test.ts` pins a hash of the rule files, so editing a rule without
  * bumping the version fails the tests.
  */
-export const MATCHING_POLICY_VERSION = 'mp-1'
+export const MATCHING_POLICY_VERSION = 'mp-2'

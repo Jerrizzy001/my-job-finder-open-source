@@ -82,7 +82,9 @@ function locationPoints(fit: RuleResult['location'], job: Job): Reason | null {
       return {
         kind: 'plus',
         code: 'location_remote',
-        text: `Remote, open to where you can work${job.location ? ` (${job.location})` : ''}.`,
+        text: job.location
+          ? `Remote, open to where you can work: ${job.location}.`
+          : 'Remote, open to where you can work.',
         points: POINTS.location.remote_in_region,
       }
     case 'remote_region_unstated':

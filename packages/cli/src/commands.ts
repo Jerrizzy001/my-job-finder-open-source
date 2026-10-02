@@ -16,6 +16,8 @@ import {
   llmUsageTotals,
   tailorBest,
   tailorJob,
+  createApp,
+  listen,
   type Workspace,
 } from '@jobfinder/server'
 import { llmConfigFromEnv, openAiCompatible } from '@jobfinder/tailor'
@@ -32,7 +34,7 @@ Usage: jobfinder <command> [options]
   match [--force] [--top N]    Score open postings against preferences.json
   tailor [--limit N] [--job ID]  Draft a resume and cover letter for the best matches (default 10)
   run [--all] [--limit N]      discover, then match, then tailor — the one to put in cron
-  serve [--port N]             Start the local UI and API on http://127.0.0.1:4321
+  serve [--port N] [--no-schedule]  Start the local UI and API on http://127.0.0.1:4321
   boards                       Show each board's last outcome and open postings
   export --csv [--out FILE]    Write your matches as CSV (stdout by default)
 
@@ -174,6 +176,33 @@ Next:
     await runTailor(ws, { limit: intFlag(flags, 'limit', DEFAULT_DRAFT_LIMIT) })
     console.log(`\nDone. Open ${relative(process.cwd(), ws.draftsDir) || 'drafts'}/ to read your drafts.`)
     console.log(HOSTED_LINE)
+  },
+
+  async serve(argv) {
+    const { flags } = parseArgs(argv, ['port=', 'no-schedule'])
+    const port = intFlag(flags, 'port', 4321)
+    const ws = resolveWorkspace()
+    const db = open(ws)
+    readPreferences(ws)
+    syncBoards(db, readCatalog(ws))
+    const webDir = join(import.meta.dirname, '..', '..', 'web', 'dist')
+    const app = createApp({
+      db,
+      ws,
+      port,
+      webDir,
+      schedule: flags['no-schedule'] !== true,
+      log: (line) => console.error(line),
+    })
+    await listen(app, port)
+    console.log(`jobfinder is running at ${app.url} (this computer only).`)
+    if (!existsSync(webDir)) console.log('The UI is not built yet: run "npm run build:web" in the repo, then reload.')
+    console.log(`Extension token (paste it into the extension once): ${app.token}`)
+    console.log(
+      flags['no-schedule']
+        ? 'Scheduler off.'
+        : 'Boards are re-read when due (every 6 hours by default). Ctrl+C to stop.',
+    )
   },
 
   async boards() {
